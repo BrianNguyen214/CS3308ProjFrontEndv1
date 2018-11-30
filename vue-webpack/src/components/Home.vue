@@ -163,6 +163,14 @@ export default {
 
     data(){
         return{
+            musicEvents: [],
+            artAndPerfEvents: [],
+            healthAndFitEvents: [],
+            foodAndDrinkEvents: [],
+            weekendEvents: [],
+            freeEvents: [],
+            mainCategoriesEvents: ['Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink'],
+            url: 'http://127.0.0.1:8000/event/allEvents/'
         }
     },
 
@@ -184,17 +192,62 @@ export default {
                     a[i].style.display = "none";
                 }
             }
+        },
+
+        eventListPlacer: function(theEvents) {
+            var i, anEvent;
+            for (i = 0; i < theEvents.length; i++){
+                anEvent = theEvents[i]
+                //console.log(anEvent)
+                //console.log(anEvent.Category)
+                if (anEvent.Category == "Music"){
+                    this.musicEvents.push(anEvent);
+                }
+                if (anEvent.Category == "Art and Performances"){
+                    this.artAndPerfEvents.push(anEvent);
+                }
+                if (anEvent.Category == "Health and Fitness"){
+                    this.healthAndFitEvents.push(anEvent);
+                }
+                if (anEvent.Category == "Food and Drink"){
+                    this.foodAndDrinkEvents.push(anEvent);
+                }
+                if (anEvent.AdmissionFee == 0){
+                    this.freeEvents.push(anEvent);
+                }
+            }
+
+            //console.log(this.musicEvents)
+            //console.log(this.artAndPerfEvents)
+            //console.log(this.healthAndFitEvents)
+            //console.log(this.foodAndDrinkEvents)
+            //console.log(this.freeEvents)
         }
     },
 
     mounted(){
+        
+        var theEvents;
+        axios(this.url, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            },
+            withCredentials: false,
+        }).then(response =>
+            {
+                theEvents = response["data"]["These are all of the events"]
+                this.eventListPlacer(theEvents);
 
+            })
     }
 }
 </script>
 
 <style scoped>
-  *{ margin: 0;}
+    *{ margin: 0;}
     p
     {
     margin: 3vmin;
@@ -233,8 +286,8 @@ export default {
         color: white;
         text-align: center;
     }
-  h3
-  {
+    h3
+    {
     font-weight: normal;
     margin-top: 2vmin;
     display: outline;
@@ -249,56 +302,56 @@ export default {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         color: white;
     }
-  img
-  {
-    width: 100%;
-    height: 50vmin;
-  }
+    img
+    {
+        width: 100%;
+        height: 50vmin;
+    }
   
     .eventSectionFirst
-  {
-    margin: 0 3vw 0 3vw;
-    /*width: 70%; */
-    text-align: center;
-    float: center;
-        margin-top: 2vh;
-        padding: 1em;
-        padding-bottom: 10vh;
-  }
-  .eventSection
-  {
-    margin: 0 3vw 0 3vw;
-    /*width: 70%; */
-    text-align: center;
-    float: center;
-        margin-top: 30vh;
-        padding: 1em;
-        padding-bottom: 10vh;
-  }
-  
-  .column 
-  {
-    margin: 0;
-    float: left;
-    width: 27%;
-    height: 15%;
-    margin-bottom: 1vh;
-    padding: 1.5vw;
-    padding-bottom: 5vmin;
-  }
-  
-  .card 
-  {
+    {
+        margin: 0 3vw 0 3vw;
+        /*width: 70%; */
+        text-align: center;
+        float: center;
+            margin-top: 2vh;
+            padding: 1em;
+            padding-bottom: 10vh;
+    }
+    .eventSection
+    {
+        margin: 0 3vw 0 3vw;
+        /*width: 70%; */
+        text-align: center;
+        float: center;
+            margin-top: 30vh;
+            padding: 1em;
+            padding-bottom: 10vh;
+    }
+    
+    .column 
+    {
+        margin: 0;
+        float: left;
+        width: 27%;
+        height: 15%;
+        margin-bottom: 1vh;
+        padding: 1.5vw;
+        padding-bottom: 5vmin;
+    }
+    
+    .card 
+    {
         background: black;
         border: 10px white;
-  }
-  .card:hover
-  {
-    box-shadow: 0.1em 0em 2.0em 0.2em rgb(238, 199, 73);
-  }
-  .card img {
-    height: 35vh;
-  }
+    }
+    .card:hover
+    {
+        box-shadow: 0.1em 0em 2.0em 0.2em rgb(238, 199, 73);
+    }
+    .card img {
+        height: 35vh;
+    }
     .title h1 {
         color: #ffd61e;
         font-size: 7vmin;
@@ -389,150 +442,150 @@ export default {
     }
     .dropdown a:hover {background-color: #ff5722;}
     .show {display: block;} 
-  @media screen and (max-width: 450px) 
-  {
-        p
-        {
-            display: outline;
-            font-size: 3.0vmin;
-            font-family: 'Gotham A', 'Gotham B', sans-serif;
-            text-decoration: none;
-            font-weight: normal;
-            color: white;
-            text-align: center;
-            line-height: 0.2em;
-        }
-        body {
-            background-color: rgb(51, 48, 48);
-            margin-right: 2vw;
-            margin: 0;
-        }
-        h1
-        {
-            font-weight: normal;
-            margin-top: 2vmin;
-            display: outline;
-            font-size: 5vmin;
-            font-family: 'Gotham A', 'Gotham B', sans-serif;
-            text-decoration: none;
-            color: #ffd61e;
-            text-align: left;
-        }
-        h2
-        {
-            margin: 3vmin;
-            display: outline;
-            font-size: 5vmin;
-            font-family: 'Gotham A', 'Gotham B', sans-serif;
-            text-decoration: none;
-            font-weight: normal;
-            color: white;
-            text-align: center;
-        }
-        h3
-        {
-            font-weight: normal;
-            margin-top: 2vmin;
-            display: outline;
-            font-size: 3.0vmin;
-            font-family: 'Gotham A', 'Gotham B', sans-serif;
-            text-decoration: none;
-            color: #ffd61e;
-            text-align: center;
-        }
-        img
-        {
-            width: 100%;
-            height: 50vmin;
-        }
-        
-        .eventSectionFirst
-        {
-            margin: 0 50px 0 50px;
-            /*width: 70%; */
-            text-align: center;
-            float: center;
-            margin-top: 10px;
-            padding: 10px;
-        }
-        .eventSection
-        {
-            text-align: center;
-            float: center;
-            padding: 10px;
-            margin: 0 50px 0 50px;
-            margin-top: 650px;
-            padding-top: 100px;
-            padding-bottom: 400px;
-        }
-        
-        .column 
-        {
-            margin: 0;
-            float: left;
-            height: 100px;
-            margin-bottom: 1vh;
-            padding: 1.5vw;
-            width: 100%;
-            display: block;
-            padding-bottom: 46vh;
-        }
-        
-        .card 
-        {
-            background: black;
-            border: 10px white;
-            position: absolute;
-            z-index: -1;
-            margin-top: 10px;
-            float: center;
-            max-width: 70%;
-        }
-        .card:hover
-        {
-            box-shadow: 0.1em 0em 2.0em 0.2em rgb(238, 199, 73);
-        }
-        .card img {
-            height: 35vh;
-        }
-        .title h1 {
-            color: #ffd61e;
-            font-size: 7vmin;  
-            text-align: center;
-            margin: 0;
-            margin-top: 5vh;
-        }
-        #eventInfoGrid {
-            display: grid;
-            grid-template-columns: 30% 70%;
-            padding: 10px;
-        }
-        .eventGridItem h1 {
-            padding: 20px;
-            padding-left: 30px;
-            font-size: 5vmin;
-            text-align: center;
-            color: #ffd61e;
-        }
-        .eventGridItem h3 {
-            font-size: 3.5vmin;
-            color: #ffd61e;
-        }
-        .eventSecHeader h1 {
-            font-size: 5vmin;
-            color: #ffd61e;
-        }
-        .openingSectionGrid {
-            display: grid;
-            grid-template-columns: 100%;
-        }
-        .openingSecGItem h1 {
-            font-size: 3.8vmin;
-            text-align: left;
-            color: white;
-            float: center;
-            display: flex;
-            padding-top: 0;
-        }
-  }
+@media screen and (max-width: 450px) 
+{
+    p
+    {
+        display: outline;
+        font-size: 3.0vmin;
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
+        text-decoration: none;
+        font-weight: normal;
+        color: white;
+        text-align: center;
+        line-height: 0.2em;
+    }
+    body {
+        background-color: rgb(51, 48, 48);
+        margin-right: 2vw;
+        margin: 0;
+    }
+    h1
+    {
+        font-weight: normal;
+        margin-top: 2vmin;
+        display: outline;
+        font-size: 5vmin;
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
+        text-decoration: none;
+        color: #ffd61e;
+        text-align: left;
+    }
+    h2
+    {
+        margin: 3vmin;
+        display: outline;
+        font-size: 5vmin;
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
+        text-decoration: none;
+        font-weight: normal;
+        color: white;
+        text-align: center;
+    }
+    h3
+    {
+        font-weight: normal;
+        margin-top: 2vmin;
+        display: outline;
+        font-size: 3.0vmin;
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
+        text-decoration: none;
+        color: #ffd61e;
+        text-align: center;
+    }
+    img
+    {
+        width: 100%;
+        height: 50vmin;
+    }
+    
+    .eventSectionFirst
+    {
+        margin: 0 50px 0 50px;
+        /*width: 70%; */
+        text-align: center;
+        float: center;
+        margin-top: 10px;
+        padding: 10px;
+    }
+    .eventSection
+    {
+        text-align: center;
+        float: center;
+        padding: 10px;
+        margin: 0 50px 0 50px;
+        margin-top: 650px;
+        padding-top: 100px;
+        padding-bottom: 400px;
+    }
+    
+    .column 
+    {
+        margin: 0;
+        float: left;
+        height: 100px;
+        margin-bottom: 1vh;
+        padding: 1.5vw;
+        width: 100%;
+        display: block;
+        padding-bottom: 46vh;
+    }
+    
+    .card 
+    {
+        background: black;
+        border: 10px white;
+        position: absolute;
+        z-index: -1;
+        margin-top: 10px;
+        float: center;
+        max-width: 70%;
+    }
+    .card:hover
+    {
+        box-shadow: 0.1em 0em 2.0em 0.2em rgb(238, 199, 73);
+    }
+    .card img {
+        height: 35vh;
+    }
+    .title h1 {
+        color: #ffd61e;
+        font-size: 7vmin;  
+        text-align: center;
+        margin: 0;
+        margin-top: 5vh;
+    }
+    #eventInfoGrid {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        padding: 10px;
+    }
+    .eventGridItem h1 {
+        padding: 20px;
+        padding-left: 30px;
+        font-size: 5vmin;
+        text-align: center;
+        color: #ffd61e;
+    }
+    .eventGridItem h3 {
+        font-size: 3.5vmin;
+        color: #ffd61e;
+    }
+    .eventSecHeader h1 {
+        font-size: 5vmin;
+        color: #ffd61e;
+    }
+    .openingSectionGrid {
+        display: grid;
+        grid-template-columns: 100%;
+    }
+    .openingSecGItem h1 {
+        font-size: 3.8vmin;
+        text-align: left;
+        color: white;
+        float: center;
+        display: flex;
+        padding-top: 0;
+    }
+}
 </style>
