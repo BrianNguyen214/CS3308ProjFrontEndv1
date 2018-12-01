@@ -41,11 +41,9 @@
                     <h1>Events Over the Weekend</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#">View more</a>
+                    <p>See more</p>
                 </div>
             </div>
-
-            <div v-for="event in "
 
             <div class="column">
                 <div class="card">
@@ -105,7 +103,7 @@
                     <h1>Music</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#">View more</a>
+                    <p>See more</p>
                 </div>
             </div>
 
@@ -160,6 +158,7 @@
             
         </div>
 
+        </div>
     </body>
     
 </template>
@@ -177,35 +176,18 @@ export default {
             weekendEvents: [],
             freeEvents: [],
             mainCategoriesEvents: ['Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink'],
-            url: 'http://127.0.0.1:8000/event/allEvents/',
-            monthDayDict: {
-                1: 31,
-                2: 28,
-                3: 31,
-                4: 30,
-                5: 31,
-                6: 30,
-                7: 31,
-                8: 31,
-                9: 30,
-                10: 31,
-                11: 30,
-                12: 31
-            }
+            url: 'http://127.0.0.1:8000/event/allEvents/'
         }
     },
 
     methods: {
         myFunction: function() {
-            var x
-            x = document.getElementById("myDropdown").classList.toggle("show");
-            //console.log(x)
+            document.getElementById("myDropdown").classList.toggle("show");
         },
         
-        filterFunction: function(dd) {
-            var input, filter, ul, li, a, i, div;
+        filterFunction: function() {
+            var input, filter, ul, li, a, i;
             input = document.getElementById("myInput");
-            //console.log(input)
             filter = input.value.toUpperCase();
             div = document.getElementById("myDropdown");
             a = div.getElementsByTagName("a");
@@ -218,117 +200,12 @@ export default {
             }
         },
 
-        weekendDaysCalculator: function(currMonth, currDayOfWeek, currDayNum, currYear){
-            //console.log(currMonth)
-            //console.log(currDayOfWeek)
-            //console.log(currDayNum)
-            //console.log(currYear)
-            
-            var numDaysAwaySat, numDaysAwaySun, totalNumDaysOfMonth, i, newMonth, newYear;
-            numDaysAwaySat = 6-currDayOfWeek;
-            numDaysAwaySun = 7-currDayOfWeek;
-            newMonth = currMonth;
-            newYear = currYear
-            totalNumDaysOfMonth = this.monthDayDict[currMonth];
-            //console.log(totalNumDaysOfMonth)
-            var SatMonth, SatDay, SatYear;
-            var SunMonth, SunDay, SunYear;
-            for (i = 0; i < numDaysAwaySun+1; i++){
-                if (currDayNum == totalNumDaysOfMonth){
-                    currDayNum = 1;
-                    newMonth = newMonth + 1;
-                    if (newMonth == 13){
-                        newMonth = 1;
-                        newYear = newYear + 1
-                        if (newYear == 100){
-                            newYear = "00";
-                        }
-                    }
-                }
-                if (currDayOfWeek == 6){
-                    SatMonth = newMonth
-                    SatDay = currDayNum
-                    SatYear = newYear
-                }
-                if (currDayOfWeek == 0){
-                    SunMonth = newMonth
-                    SunDay = currDayNum
-                    SunYear = newYear
-                }
-                else {
-                    currDayNum = currDayNum + 1
-                    currDayOfWeek = currDayOfWeek + 1
-                    if (currDayOfWeek == 7){
-                        currDayOfWeek = 0
-                    }
-                }
-            }
-            /*
-            console.log(SatMonth)
-            console.log(SatDay)
-            console.log(SatYear)
-            console.log(SunMonth)
-            console.log(SunDay)
-            console.log(SunYear) */
-            return [SatMonth.toString(), SatDay.toString(), SatYear.toString(), SunMonth.toString(), SunDay.toString(), SunYear.toString()]
-        },
-
-        dateParser: function(theDate){
-            var begin, end, data, i, substringer;
-            begin = 0
-            data = []
-            for (i = 0; i < theDate.length; i++){
-                //console.log(theDate[i])
-                if (theDate[i] == "-"){
-                    //console.log("found dash")
-                    substringer = theDate.toString().substring(begin, i)
-                    begin = i+1
-                    data.push(substringer)
-                }
-            }
-            substringer = theDate.toString().substring(begin, theDate.length)
-            data.push(substringer)
-            //console.log(data)
-            return data
-        },
-
         eventListPlacer: function(theEvents) {
-            var currDate = new Date();
-            //console.log(currDate);
-            var dd = currDate.getDate();
-            //console.log(dd);
-            var mm = currDate.getMonth()+1; //janurary is 0 but add 1 to make january 1, february 2, and so on
-            //console.log(mm)
-            var yyyy = currDate.getFullYear();
-            //console.log(yyyy)
-            var dayOfWeek = currDate.getDay(); //sunday is 0
-            //console.log(dayOfWeek)
-            var lastTwoDigitsYear = yyyy.toString().substr(2,4);
-            //console.log(lastTwoDigitsYear)
-            var isWeekend = dayOfWeek%6==0;
-            //console.log(isWeekend)
-            var currDateData = this.weekendDaysCalculator(mm, dayOfWeek, dd, lastTwoDigitsYear)
-            //currDateData[0] is month of Saturday
-            //currDateData[1] is day of Saturday
-            //currDateData[2] is year of Saturday
-            //currDateData[3] is month of Sunday
-            //currDateData[4] is day of Sunday
-            //currDateData[5] is year of Sunday
-
             var i, anEvent;
-            var dateData;
-            var addedToWeekendList;
             for (i = 0; i < theEvents.length; i++){
-                addedToWeekendList = false;
                 anEvent = theEvents[i]
                 //console.log(anEvent)
                 //console.log(anEvent.Category)
-                //console.log(anEvent.Date)
-                dateData = this.dateParser(anEvent.Date) 
-                //dateData[0] = month
-                //dateData[1] = day
-                //dateData[2] = year
-
                 if (anEvent.Category == "Music"){
                     this.musicEvents.push(anEvent);
                 }
@@ -344,27 +221,13 @@ export default {
                 if (anEvent.AdmissionFee == 0){
                     this.freeEvents.push(anEvent);
                 }
-
-                //event takes place this Saturday
-                if ((dateData[0].toString() == currDateData[0]) && (dateData[1].toString() == currDateData[1]) && (dateData[2].toString() == currDateData[2]) && (addedToWeekendList == false)){
-                    this.weekendEvents.push(anEvent);
-                    addedToWeekendList = true
-                }
-
-                //event takes place this Sunday
-                if ((dateData[0].toString() == currDateData[3]) && (dateData[1].toString() == currDateData[4]) && (dateData[2].toString() == currDateData[5]) && (addedToWeekendList == false)){
-                    this.weekendEvents.push(anEvent);
-                    addedToWeekendList = true
-                }
-                
             }
 
-            console.log(this.musicEvents)
-            console.log(this.artAndPerfEvents)
-            console.log(this.healthAndFitEvents)
-            console.log(this.foodAndDrinkEvents)
-            console.log(this.freeEvents)
-            console.log(this.weekendEvents)
+            //console.log(this.musicEvents)
+            //console.log(this.artAndPerfEvents)
+            //console.log(this.healthAndFitEvents)
+            //console.log(this.foodAndDrinkEvents)
+            //console.log(this.freeEvents)
         }
     },
 
@@ -451,12 +314,6 @@ export default {
         height: 50vmin;
     }
   
-    input, select {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-                box-sizing: border-box;
-    }
-
     .eventSectionFirst
     {
         margin: 0 3vw 0 3vw;
@@ -553,30 +410,11 @@ export default {
         float: right;
     }
 
-    .eventSHGISeeMore{
-        width: 100%;
-    }
-
     .eventSHGISeeMore p{
         padding-top: 4vh;
         text-align: right;
         font-size: 2.5vmin;
         padding-right: 3vw;
-    }
-
-    .eventSHGISeeMore a{
-        padding-top: 4vh;
-        text-align: right;
-        font-size: 2.8vmin;
-        padding-right: 3vw;
-        color: white;
-        position: absolute;
-        text-decoration: none;
-    }
-
-    .eventSHGISeeMore a:hover{
-        color: #ff5722;
-        text-decoration: underline;
     }
 
     .eventSecHeaderGrid h1 {
@@ -615,9 +453,6 @@ export default {
         border-bottom: 1px solid #ddd;
         position: relative;
     }
-    #myDropDown{
-        font-size: 3.0vh;
-    }
     .searchBox {
         margin-right: 10vw;
     }
@@ -634,7 +469,7 @@ export default {
         display: none;
         position: absolute;
         background-color: #ffd61e;
-        width: 22.8vw;
+        width: 25.5vw;
         overflow: auto;
         border: 1px solid #ddd;
         z-index: 1;
