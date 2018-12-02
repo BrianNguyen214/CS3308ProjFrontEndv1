@@ -2,29 +2,29 @@
     <body>
         <div id="app">
             
-                <div class="dropdown">
-                    <div id="searchBox">
-                        <input v-on:click="myFunction" type="text" placeholder="Search for an event" id="myInput" v-on:keyup="filterFunction">
-                    </div>
-
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#holder">Over the Weekend</a>
-                        <a href="#holder">Music</a>
-                        <a href="#holder">Art and Performances</a>
-                        <a href="#holder">Health and Fitness</a>
-                        <a href="#holder">Food and Drink</a>
-                        <a href="#holder">Free</a>
-                    </div>
+            <div class="dropdown">
+                <div id="searchBox">
+                    <input v-on:click="myFunction" type="text" placeholder="Search for an event" id="myInput" v-on:keyup="filterFunction">
                 </div>
 
-                <div class="title">
-                    <div class="logo">
-                        <h1 style="color: white; font-size: 5vh; padding-left: 2vw;">Monday Blues</h1>
-                    </div>
-                    <h1>Upcoming Events in Boulder</h1>
+                <div id="myDropdown" class="dropdown-content">
+                    <a v-on:click="goToCategory(categoriesOfEvents[0])">Over the Weekend</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[1])">Music</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[2])">Art and Performances</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[3])">Health and Fitness</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[4])">Food and Drink</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[5])">Free</a>
                 </div>
-
             </div>
+
+            <div class="title">
+                <div class="logo">
+                    <h1 style="color: white; font-size: 5vh; padding-left: 2vw;">Monday Blues</h1>
+                </div>
+                <h1>Upcoming Events in Boulder</h1>
+            </div>
+
+        </div>
 
             <div class="openingSectionGrid">
                 <div class="openingSecGItem">
@@ -233,7 +233,8 @@ export default {
             foodAndDrinkEvents: [],
             weekendEvents: [],
             freeEvents: [],
-            mainCategoriesEvents: ['Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink'],
+            listTest: [1,2,3],
+            categoriesOfEvents: ['Over the Weekend', 'Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink', 'Free'],
             url: 'http://127.0.0.1:8000/event/allEvents/',
             monthDayDict: {
                 1: 31,
@@ -277,6 +278,11 @@ export default {
 
     methods: {
 
+        goToCategory: function(theCategory) {
+            console.log(theCategory)
+            this.$router.push({name: 'category', params: { category: theCategory}})
+        },
+
         toWordMonth: function(fullDate) {
             var data, month, wordedMonth
             data = this.dateParser(fullDate)
@@ -296,7 +302,7 @@ export default {
             var wordedDayOfWeek
             var theDateOfWeek = new Date(fullDate)
             wordedDayOfWeek = this.numDayOfWeekDict[theDateOfWeek.getDay()]
-            console.log(wordedDayOfWeek)
+            //console.log(wordedDayOfWeek)
             return wordedDayOfWeek
         },
 
@@ -411,13 +417,13 @@ export default {
             //console.log(lastTwoDigitsYear)
             var isWeekend = dayOfWeek%6==0;
             //console.log(isWeekend)
-            var currDateData = this.weekendDaysCalculator(mm, dayOfWeek, dd, lastTwoDigitsYear)
-            //currDateData[0] is month of Saturday
-            //currDateData[1] is day of Saturday
-            //currDateData[2] is year of Saturday
-            //currDateData[3] is month of Sunday
-            //currDateData[4] is day of Sunday
-            //currDateData[5] is year of Sunday
+            var weekendDateData = this.weekendDaysCalculator(mm, dayOfWeek, dd, lastTwoDigitsYear)
+            //weekendDateData[0] is month of Saturday
+            //weekendDateData[1] is day of Saturday
+            //weekendDateData[2] is year of Saturday
+            //weekendDateData[3] is month of Sunday
+            //weekendDateData[4] is day of Sunday
+            //weekendDateData[5] is year of Sunday
 
             var i, anEvent;
             var dateData;
@@ -450,13 +456,13 @@ export default {
                 }
 
                 //event takes place this Saturday
-                if ((dateData[0].toString() == currDateData[0]) && (dateData[1].toString() == currDateData[1]) && (dateData[2].toString() == currDateData[2]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
+                if ((dateData[0].toString() == weekendDateData[0]) && (dateData[1].toString() == weekendDateData[1]) && (dateData[2].toString() == weekendDateData[2]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
                     this.weekendEvents.push(anEvent);
                     addedToWeekendList = true
                 }
 
                 //event takes place this Sunday
-                if ((dateData[0].toString() == currDateData[3]) && (dateData[1].toString() == currDateData[4]) && (dateData[2].toString() == currDateData[5]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
+                if ((dateData[0].toString() == weekendDateData[3]) && (dateData[1].toString() == weekendDateData[4]) && (dateData[2].toString() == weekendDateData[5]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
                     this.weekendEvents.push(anEvent);
                     addedToWeekendList = true
                 }

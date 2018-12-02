@@ -3,19 +3,15 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Home from './components/Home';
+import Category from './components/Category';
 
 Vue.use(VueResource);
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 const routes = [
-    //{path:'/aboutus', component: Officers},
     {path: '/', component: Home},
-    //{path: '/contact', component: JobOrder},
-    //{path: '/signup', component: SignUp},
-    //{path: '/email_confirmed', component: EmailConfirmed},
-    //{path: '/invalid_email', component: InvalidEmail},
-    //{path: '/email_exists_already', component: EmailAlready},
+    {path: '/:category', name: "category", component: Category},
     //{path: '/article/:token1/:token2/:token3', name: "article", component: ArticleDescrip},
 ]
 
