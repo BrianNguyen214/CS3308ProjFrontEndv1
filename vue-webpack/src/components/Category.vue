@@ -21,19 +21,6 @@
                         </div>
                     </div>
                     
-                    <!--
-                    <img :src='event["PictureLink"]' class="profile" style ="width:100%">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>{{event['Title']}}</h3>
-                            <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
-                            <p>{{event['Location']}}</p>
-                        </div>
-                    </div> 
-                    -->
                 </div>
             </div>               
         </div> -->
@@ -259,42 +246,12 @@ export default {
     text-align: center;
     }
     
-    .logo h1{
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        color: white;
-    }
     img
     {
         width: 100%;
         height: 100%;
     }
-  
-    input, select {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-                box-sizing: border-box;
-    }
 
-    .eventSectionFirst
-    {
-        margin: 0 3vw 0 3vw;
-        width: 100%;
-        text-align: center;
-        float: center;
-        margin-top: 2vh;
-        padding: 1em;
-    }
-    .eventSection
-    {
-        margin: 0 3vw 0 3vw;
-        width: 100%;
-        text-align: center;
-        float: center;
-        margin-top: 35vh;
-        padding: 1em;
-        padding-top: 30vh;
-    }
-    
     .column 
     {
         margin: 0;
@@ -304,8 +261,6 @@ export default {
         margin-bottom: 1vh;
         padding: 1.5vw;
         padding-bottom: 5vmin;
-        /*background-color: black;*/
-        /*background-size: 100% 100%;*/
     }
     
     .card 
@@ -317,29 +272,6 @@ export default {
 
     .card img {
         height: 100%;
-    }
-
-    .title{
-        padding: 2em;
-    }
-
-    .title h1 {
-        color: #ffd61e;
-        font-size: 7vmin;
-        margin-left: 3.5vw;
-        margin-top: 7.1vh; 
-        line-height: 0;   
-        position: relative;
-    }
-
-    .topGrid {
-        display: grid;
-        grid-template-columns: 70% 30%;
-        height: 10vh;
-    }
-
-    .topSearch {
-        padding-top: 3vh;
     }
 
     .cardGrid{
@@ -377,269 +309,8 @@ export default {
         padding: 0.2em;
     }
 
-    #eventInfoGrid {
-        display: grid;
-        grid-template-columns: 30% 70%;
-        padding: 10px;
-        height: 16vh;
-    }
-    .eventGridItem h1 {
-        padding: 0.2em;
-        padding-left: 1.0vw;
-        font-size: 4.5vmin;
-        text-align: center;
-        color: #ffd61e;
-        float: bottom;
-    }
-    .eventGridItem h3 {
-        font-size: 3.2vmin;
-        color: #ffd61e;
-        padding: 0.2em;
-    }
-    .eventSecHeaderGrid{
-        display: grid;
-        grid-template-columns: 75% 23%;
-    }
-
-    .eventSHGITitle{
-        float: right;
-    }
-
-    .eventSHGISeeMore{
-        width: 100%;
-    }
-
-    .eventSHGISeeMore p{
-        padding-top: 4vh;
-        text-align: right;
-        font-size: 2.5vmin;
-        padding-right: 3vw;
-    }
-
-    .eventSHGISeeMore a{
-        padding-top: 4vh;
-        text-align: right;
-        font-size: 2.8vmin;
-        padding-right: 3vw;
-        color: white;
-        position: absolute;
-        text-decoration: none;
-    }
-
-    .eventSHGISeeMore a:hover{
-        color: #ff5722;
-        text-decoration: underline;
-    }
-
-    .eventSecHeaderGrid h1 {
-        font-size: 5vmin;
-        color: #ffd61e;
-    }
-    #myInput {
-        /*background-image: url('searchicon.png');
-        background-position: 14px 12px;
-        background-repeat: no-repeat; */
-        font-size: 3.0vh;
-        padding: 10px 10px 10px 10px;
-        border: 1px solid rgb(51, 48, 48);
-        width: 23vw;
-        /*width: 50px;*/
-        border-bottom: 1px solid #ddd;
-        position: relative;
-    }
-    #myDropDown{
-        font-size: 3.0vh;
-    }
-    .searchBox {
-        margin-right: 10vw;
-    }
-    ::placeholder {
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        color: rgb(51, 48, 48);
-    }
-    .dropdown {
-        position: relative;
-        display: inline-block;
-        float: right;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #ffd61e;
-        width: 22.8vw;
-        overflow: auto;
-        border: 1px solid #ddd;
-        z-index: 1;
-    }
-    .dropdown-content a {
-        color: rgb(51, 48, 48);
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        font-size: 2.7vh;
-    }
-    .dropdown a:hover {background-color: #ff5722;}
-    .show {display: block;} 
 @media screen and (max-width: 450px) 
 {
-    p
-    {
-        display: outline;
-        font-size: 3.0vmin;
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        text-decoration: none;
-        font-weight: normal;
-        color: white;
-        text-align: center;
-        line-height: 0.2em;
-    }
-    body {
-        background-color: black;
-        margin-right: 2vw;
-        margin: 0;
-    }
-    h1
-    {
-        font-weight: normal;
-        margin-top: 2vmin;
-        display: outline;
-        font-size: 5vmin;
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        text-decoration: none;
-        color: #ffd61e;
-        text-align: left;
-    }
-    h2
-    {
-        margin: 3vmin;
-        display: outline;
-        font-size: 5vmin;
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        text-decoration: none;
-        font-weight: normal;
-        color: white;
-        text-align: center;
-    }
-    h3
-    {
-        font-weight: normal;
-        margin-top: 2vmin;
-        display: outline;
-        font-size: 3.0vmin;
-        font-family: 'Gotham A', 'Gotham B', sans-serif;
-        text-decoration: none;
-        color: #ffd61e;
-        text-align: center;
-    }
-    img
-    {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .eventSectionFirst
-    {
-        margin: 0 50px 0 50px;
-        /*width: 70%; */
-        text-align: center;
-        float: center;
-        margin-top: 10px;
-        padding: 10px;
-    }
-    .eventSection
-    {
-        text-align: center;
-        float: center;
-        padding: 10px;
-        margin: 0 50px 0 50px;
-        margin-top: 650px;
-        padding-top: 100px;
-        padding-bottom: 400px;
-    }
-    
-    .column 
-    {
-        margin: 0;
-        float: left;
-        height: 100px;
-        margin-bottom: 1vh;
-        padding: 1.5vw;
-        width: 100%;
-        display: block;
-        padding-bottom: 46vh;
-    }
-    
-    .card 
-    {
-        background: black;
-        border: 10px white;
-        position: absolute;
-        z-index: -1;
-        margin-top: 10px;
-        float: center;
-        max-width: 70%;
-    }
-    .card:hover
-    {
-        box-shadow: 0.1em 0em 2.0em 0.2em rgb(238, 199, 73);
-    }
-    .card img {
-        height: 100%;
-    }
-    .title h1 {
-        color: #ffd61e;
-        font-size: 7vmin;  
-        text-align: center;
-        margin: 0;
-        margin-top: 5vh;
-    }
-    #eventInfoGrid {
-        display: grid;
-        grid-template-columns: 30% 70%;
-        padding: 10px;
-    }
-    .eventGridItem h1 {
-        padding: 20px;
-        /*padding-left: 30px;*/
-        font-size: 5vmin;
-        text-align: center;
-        color: #ffd61e;
-    }
-    .eventGridItem h3 {
-        font-size: 3.5vmin;
-        color: #ffd61e;
-    }
-    .eventSecHeaderGrid{
-        display: grid;
-        grid-template-columns: 80% 20%;
-    }
 
-    .eventSHGITitle{
-        float: right;
-    }
-
-    .eventSHGISeeMore p{
-        float: left;
-        color: black;
-        font-size: 20vh;
-    }
-
-    .eventSecHeaderGrid h1 {
-        font-size: 5vmin;
-        color: #ffd61e;
-    }
-    .openingSectionGrid {
-        display: grid;
-        grid-template-columns: 100%;
-    }
-    .openingSecGItem h1 {
-        font-size: 3.8vmin;
-        text-align: left;
-        color: white;
-        float: center;
-        display: flex;
-        padding-top: 0;
-    }
 }
 </style>
