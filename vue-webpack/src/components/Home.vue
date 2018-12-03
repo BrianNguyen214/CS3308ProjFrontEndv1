@@ -41,13 +41,13 @@
                     <h1 v-if="weekendEvents.length">Events Over the Weekend</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="weekendEvents.length">View more</a>
+                    <a v-if="weekendEvents.length" v-on:click="goToCategory(categoriesOfEvents[0])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in weekendEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -55,7 +55,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -72,13 +72,13 @@
                     <h1 v-if="musicEvents.length">Music</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="musicEvents.length">View more</a>
+                    <a v-if="musicEvents.length" v-on:click="goToCategory(categoriesOfEvents[1])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in musicEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -86,7 +86,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -102,13 +102,13 @@
                     <h1 v-if="artAndPerfEvents.length">Art and Performances</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="artAndPerfEvents.length">View more</a>
+                    <a v-if="artAndPerfEvents.length" v-on:click="goToCategory(categoriesOfEvents[2])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in artAndPerfEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -116,7 +116,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -132,13 +132,13 @@
                     <h1 v-if="healthAndFitEvents.length">Health and Fitness</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="healthAndFitEvents.length">View more</a>
+                    <a v-if="healthAndFitEvents.length" v-on:click="goToCategory(categoriesOfEvents[3])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in healthAndFitEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -146,7 +146,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -162,13 +162,13 @@
                     <h1 v-if="foodAndDrinkEvents.length">Food and Drink</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="foodAndDrinkEvents.length">View more</a>
+                    <a v-if="foodAndDrinkEvents.length" v-on:click="goToCategory(categoriesOfEvents[4])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in foodAndDrinkEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -176,7 +176,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -192,13 +192,13 @@
                     <h1 v-if="freeEvents.length">Free</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#" v-if="freeEvents.length">View more</a>
+                    <a v-if="freeEvents.length" v-on:click="goToCategory(categoriesOfEvents[5])">View more</a>
                 </div>
             </div>
 
             <div v-for="event in freeEvents">
                 <div class="column">
-                    <div class="card">
+                    <div class="card" v-on:click="goToEvent(event)">
                         <img :src='event["PictureLink"]' class="profile" style ="width:100%">
                         <div id="eventInfoGrid">
                             <div class="eventGridItem">
@@ -206,7 +206,7 @@
                             </div>      
                             <div class="eventGridItem">
                                 <h3>{{event['Title']}}</h3>
-                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}, {{event['Times']}}</p>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
                                 <p>{{event['Location']}}</p>
                             </div>
                         </div>
@@ -233,7 +233,6 @@ export default {
             foodAndDrinkEvents: [],
             weekendEvents: [],
             freeEvents: [],
-            listTest: [1,2,3],
             categoriesOfEvents: ['Over the Weekend', 'Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink', 'Free'],
             url: 'http://127.0.0.1:8000/event/allEvents/',
             monthDayDict: {
@@ -278,8 +277,13 @@ export default {
 
     methods: {
 
+        goToEvent: function(theEvent) {
+            var theEventTitle = theEvent['Title']
+            this.$router.push({name: 'event', params: { eventTitle: theEventTitle }})
+            
+        },
+
         goToCategory: function(theCategory) {
-            //console.log(theCategory)
             this.$router.push({name: 'category', params: { category: theCategory}})
         },
 
@@ -523,6 +527,9 @@ export default {
     body {
         background-color: rgb(51, 48, 48);
         margin: 4em;
+    }
+    a {
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
     }
     h1
     {

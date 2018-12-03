@@ -1,7 +1,7 @@
 <template>
     <body>
-        <h1>Events:</h1>
-        <h1>{{theCategory}}</h1>
+
+        <h1>{{categoryTitle(theCategory)}}</h1>
 
         <div v-for="event in theEvents">
             <div class="column">
@@ -81,7 +81,16 @@ export default {
 
     methods: {
 
-        goToEvent: function(theEvent) {
+        categoryTitle: function(theCategory){
+            if (theCategory == "Over the Weekend"){
+                return ("Events Over the Weekend")
+            }
+            else {
+                return (theCategory.toString() + " Events")
+            }
+        },
+
+        goToEvent: function(theEvent){
             var theEventTitle = theEvent['Title']
             this.$router.push({name: 'event', params: { eventTitle: theEventTitle }})
             
@@ -89,7 +98,7 @@ export default {
 
         isThereAdmissionFee: function(eventAdmFee){
             if (eventAdmFee != 0){
-                return eventAdmFee
+                return ("$" + eventAdmFee.toString())
             }
             else{
                 return "None"

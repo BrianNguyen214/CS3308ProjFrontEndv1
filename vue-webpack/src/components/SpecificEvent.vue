@@ -9,7 +9,7 @@
                     <div class="infoTitle">
                         <p>Date and Times:</p>
                     </div>
-                    <div class="infoDate">
+                    <div class="infoData">
                         <p>{{getDayOfWeek(theEvent['Date'])}}, {{toWordMonth(theEvent['Date'])}} {{getDay(theEvent['Date'])}} {{theEvent['Times']}}</p>
                     </div>
                 </div>
@@ -200,8 +200,13 @@ export default {
     *{ margin: 0;}
 
     .info {
-        margin-bottom: 2vh;
+        margin-bottom: 2.2vh;
     }
+
+    .infoTitle p{
+        color: white;
+    }
+
     a {
         display: outline;
         font-size: 3.7vmin;
