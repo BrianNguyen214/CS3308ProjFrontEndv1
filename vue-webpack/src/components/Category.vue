@@ -5,7 +5,7 @@
 
         <div v-for="event in theEvents">
             <div class="column">
-                <div class="card">
+                <div class="card" v-on:click="goToEvent(event)">
                     <div class="cardGrid">
                         <div class="cardGridItem">
                             <img :src='event["PictureLink"]' class="profile" style ="width:100%">
@@ -23,7 +23,7 @@
                     
                 </div>
             </div>               
-        </div> -->
+        </div> 
 
     </body>
     
@@ -80,6 +80,12 @@ export default {
     },
 
     methods: {
+
+        goToEvent: function(theEvent) {
+            var theEventTitle = theEvent['Title']
+            this.$router.push({name: 'event', params: { eventTitle: theEventTitle }})
+            
+        },
 
         isThereAdmissionFee: function(eventAdmFee){
             if (eventAdmFee != 0){
@@ -173,7 +179,7 @@ export default {
                  
         else{
 
-            axios('http://127.0.0.1:8000/event/particularEvents/'+this.theCategory+"/", {
+            axios('http://127.0.0.1:8000/event/particularEvents/'+this.$route.params.category+"/", {
                 method: 'GET',
                 mode: 'no-cors',
                 headers: {

@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import Home from './components/Home';
 import Category from './components/Category';
+import SpecificEvent from './components/SpecificEvent';
 
 Vue.use(VueResource);
 Vue.config.productionTip = false;
@@ -11,15 +12,13 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 const routes = [
     {path: '/', component: Home},
-    {path: '/:category', name: "category", component: Category},
-    //{path: '/article/:token1/:token2/:token3', name: "article", component: ArticleDescrip},
+    {path: '/category/:category', name: "category", component: Category},
+    {path: '/event/:eventTitle', name: "event", component: SpecificEvent},
 ]
 
 const router = new VueRouter({
     routes
 }) 
-
-Vue.component('home', Home);
 
 new Vue({
   router,

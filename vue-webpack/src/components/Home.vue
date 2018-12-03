@@ -26,14 +26,14 @@
 
         </div>
 
-            <div class="openingSectionGrid">
-                <div class="openingSecGItem">
-                    <h1>Participate in the exciting events, build new relationships, or try out interesting activites around Boulder</h1>
-                </div>
-                <div class="openingSecGItem">
-                    <img src="https://cdn-images-1.medium.com/max/1554/0*kIvi9mTnSxkdw9GQ.jpg">
-                </div>
+        <div class="openingSectionGrid">
+            <div class="openingSecGItem">
+                <h1>Participate in the exciting events, build new relationships, or try out interesting activites around Boulder</h1>
             </div>
+            <div class="openingSecGItem">
+                <img src="https://cdn-images-1.medium.com/max/1554/0*kIvi9mTnSxkdw9GQ.jpg">
+            </div>
+        </div>
 
         <div class='eventSectionFirst'>
             <div class="eventSecHeaderGrid">
@@ -279,7 +279,7 @@ export default {
     methods: {
 
         goToCategory: function(theCategory) {
-            console.log(theCategory)
+            //console.log(theCategory)
             this.$router.push({name: 'category', params: { category: theCategory}})
         },
 
@@ -337,13 +337,19 @@ export default {
             var numDaysAwaySat, numDaysAwaySun, totalNumDaysOfMonth, i, newMonth, newYear;
             numDaysAwaySat = 6-currDayOfWeek;
             numDaysAwaySun = 7-currDayOfWeek;
+            //console.log(numDaysAwaySat)
+            //console.log(numDaysAwaySun)
             newMonth = currMonth;
             newYear = currYear
             totalNumDaysOfMonth = this.monthDayDict[currMonth];
+
             //console.log(totalNumDaysOfMonth)
             var SatMonth, SatDay, SatYear;
             var SunMonth, SunDay, SunYear;
             for (i = 0; i < numDaysAwaySun+1; i++){
+                //console.log(i)
+                //console.log(currDayNum)
+                //console.log(currDayOfWeek)
                 if (currDayNum == totalNumDaysOfMonth){
                     currDayNum = 1;
                     newMonth = newMonth + 1;
@@ -355,24 +361,25 @@ export default {
                         }
                     }
                 }
-                if (currDayOfWeek == 6){
+                else if (currDayOfWeek == 6){
                     SatMonth = newMonth
                     SatDay = currDayNum
                     SatYear = newYear
                 }
-                if (currDayOfWeek == 0){
+                else if (currDayOfWeek == 0){
                     SunMonth = newMonth
                     SunDay = currDayNum
                     SunYear = newYear
                 }
-                else {
-                    currDayNum = currDayNum + 1
-                    currDayOfWeek = currDayOfWeek + 1
-                    if (currDayOfWeek == 7){
-                        currDayOfWeek = 0
-                    }
+                
+                currDayNum = currDayNum + 1
+                currDayOfWeek = currDayOfWeek + 1
+                if (currDayOfWeek == 7){
+                    currDayOfWeek = 0
                 }
+                
             }
+            
             /*
             console.log(SatMonth)
             console.log(SatDay)
