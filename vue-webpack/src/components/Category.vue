@@ -90,10 +90,12 @@ export default {
             }
         },
 
-        goToEvent: function(theEvent){
+        goToEvent: function(theEvent) {
             var theEventTitle = theEvent['Title']
-            this.$router.push({name: 'event', params: { eventTitle: theEventTitle }})
-            
+            var eventToken1 = theEvent['token1']
+            var eventToken2 = theEvent['token2']
+            var eventToken3 = theEvent['token3']
+            this.$router.push({name: 'event', params: { token1: eventToken1, token2: eventToken2, token3: eventToken3 }})
         },
 
         isThereAdmissionFee: function(eventAdmFee){

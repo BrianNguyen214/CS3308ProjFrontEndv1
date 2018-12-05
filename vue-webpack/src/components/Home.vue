@@ -3,9 +3,11 @@
         <div id="app">
             
             <div class="dropdown">
-                <div id="searchBox">
-                    <input v-on:click="myFunction" type="text" placeholder="Search for an event" id="myInput" v-on:keyup="filterFunction">
-                </div>
+                <form @submit="searchingUpCategory">
+                    <div id="searchBox">
+                        <input v-on:click="myFunction" class="dropbtn" type="text" placeholder="Search for a category" id="myInput" v-on:keyup="filterFunction" v-model="searchedUpCategory">
+                    </div>
+                </form>
 
                 <div id="myDropdown" class="dropdown-content">
                     <a v-on:click="goToCategory(categoriesOfEvents[0])">Over the Weekend</a>
@@ -233,6 +235,7 @@ export default {
             foodAndDrinkEvents: [],
             weekendEvents: [],
             freeEvents: [],
+            searchedUpCategory: null,
             categoriesOfEvents: ['Over the Weekend', 'Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink', 'Free'],
             url: 'http://127.0.0.1:8000/event/allEvents/',
             monthDayDict: {
@@ -277,9 +280,68 @@ export default {
 
     methods: {
 
+        searchingUpCategory: function(e){
+            e.preventDefault();
+            //console.log(this.searchedUpCategory.toLowerCase())
+            var searchCat = this.searchedUpCategory.toLowerCase()
+            //console.log(searchCat.length)
+            var currCategory;
+            var matchedCat;
+            var numMatches = 0;
+            for (var i = 0; i < this.categoriesOfEvents.length; i++){
+                //console.log(this.categoriesOfEvents[i].toLowerCase())
+                //console.log(this.categoriesOfEvents[i].length)
+                currCategory = this.categoriesOfEvents[i].toLowerCase()
+                //console.log(currCategory)
+                //console.log(currCategory.length)
+                var currSubStr;
+                if (currCategory.length >= searchCat.length){
+                    for  (var j = 0 ; j < (currCategory.length-searchCat.length+1); j++){
+                        currSubStr = currCategory.substr(j, searchCat.length)
+                        //console.log(currSubStr)
+                        if (currSubStr == searchCat){
+                            //console.log("found match")
+                            //console.log(this.categoriesOfEvents[i])
+                            matchedCat = this.categoriesOfEvents[i]
+                            numMatches = numMatches + 1
+                            break
+                        }
+                    }
+                } 
+            }
+
+            //console.log("num matches")
+            //console.log(numMatches)
+            //console.log("matchedCat")
+            //console.log(matchedCat)
+            if (numMatches == 1){
+                this.goToCategory(matchedCat)
+            }
+        },
+
+        //turns the element into strings then compares their sequences of UTF-16 code unit values
+        sortList: function(eventList){
+
+            eventList = eventList.sort(function(a,b)
+            {
+                //console.log(a)
+                //console.log(b)
+                var c = new Date(a['Date']);
+                var d = new Date(b['Date']);
+                return c-d;
+            });
+
+            //console.log(eventList)
+
+            return eventList;
+        },
+
         goToEvent: function(theEvent) {
             var theEventTitle = theEvent['Title']
-            this.$router.push({name: 'event', params: { eventTitle: theEventTitle }})
+            var eventToken1 = theEvent['token1']
+            var eventToken2 = theEvent['token2']
+            var eventToken3 = theEvent['token3']
+            this.$router.push({name: 'event', params: { token1: eventToken1, token2: eventToken2, token3: eventToken3 }})
             
         },
 
@@ -303,19 +365,38 @@ export default {
         },
 
         getDayOfWeek: function(fullDate){
+            //console.log(fullDate)
             var wordedDayOfWeek
             var theDateOfWeek = new Date(fullDate)
+            //console.log(theDateOfWeek)
+            //console.log(theDateOfWeek.getFullYear())
             wordedDayOfWeek = this.numDayOfWeekDict[theDateOfWeek.getDay()]
             //console.log(wordedDayOfWeek)
             return wordedDayOfWeek
         },
 
         myFunction: function() {
-            var x
-            x = document.getElementById("myDropdown").classList.toggle("show");
+            document.getElementById("myDropdown").classList.toggle("show");
             //console.log(x)
         },
         
+        // Close the dropdown if the user clicks outside of it
+        window: onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+ 
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    //console.log(openDropdown)
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        },
+
         filterFunction: function(dd) {
             var input, filter, ul, li, a, i, div;
             input = document.getElementById("myInput");
@@ -486,6 +567,12 @@ export default {
             console.log(this.foodAndDrinkEvents)
             console.log(this.freeEvents)
             console.log(this.weekendEvents) */
+            this.musicEvents = this.sortList(this.musicEvents);
+            this.artAndPerfEvents = this.sortList(this.artAndPerfEvents);
+            this.healthAndFitEvents = this.sortList(this.healthAndFitEvents);
+            this.foodAndDrinkEvents = this.sortList(this.foodAndDrinkEvents);
+            this.freeEvents = this.sortList(this.freeEvents);
+            this.weekendEvents = this.sortList(this.weekendEvents);
         }
     },
 

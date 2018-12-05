@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var fs = require('fs');
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +9,13 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  /*
+  node: {
+    console: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }, */
   module: {
     rules: [
       {

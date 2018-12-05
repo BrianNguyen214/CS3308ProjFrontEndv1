@@ -2,162 +2,220 @@
     <body>
         <div id="app">
             
-                <div class="dropdown">
+            <div class="dropdown">
+                <form @submit="searchingUpCategory">
                     <div id="searchBox">
-                        <input v-on:click="myFunction" type="text" placeholder="Search for an event" id="myInput" v-on:keyup="filterFunction">
+                        <input v-on:click="myFunction" class="dropbtn" type="text" placeholder="Search for a category" id="myInput" v-on:keyup="filterFunction" v-model="searchedUpCategory">
                     </div>
+                </form>
 
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#holder">Over the Weekend</a>
-                        <a href="#holder">Music</a>
-                        <a href="#holder">Art and Performances</a>
-                        <a href="#holder">Health and Fitness</a>
-                        <a href="#holder">Food and Drink</a>
-                        <a href="#holder">Free</a>
-                    </div>
+                <div id="myDropdown" class="dropdown-content">
+                    <a v-on:click="goToCategory(categoriesOfEvents[0])">Over the Weekend</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[1])">Music</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[2])">Art and Performances</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[3])">Health and Fitness</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[4])">Food and Drink</a>
+                    <a v-on:click="goToCategory(categoriesOfEvents[5])">Free</a>
                 </div>
-
-                <div class="title">
-                    <div class="logo">
-                        <h1 style="color: white; font-size: 5vh; padding-left: 2vw;">Monday Blues</h1>
-                    </div>
-                    <h1>Upcoming Events in Boulder</h1>
-                </div>
-
             </div>
 
-            <div class="openingSectionGrid">
-                <div class="openingSecGItem">
-                    <h1>Participate in the exciting events, build new relationships, or try out interesting activites around Boulder</h1>
+            <div class="title">
+                <div class="logo">
+                    <h1 style="color: white; font-size: 5vh; padding-left: 2vw;">Monday Blues</h1>
                 </div>
-                <div class="openingSecGItem">
-                    <img src="https://cdn-images-1.medium.com/max/1554/0*kIvi9mTnSxkdw9GQ.jpg">
-                </div>
+                <h1>Upcoming Events in Boulder</h1>
             </div>
+
+        </div>
+
+        <div class="openingSectionGrid">
+            <div class="openingSecGItem">
+                <h1>Participate in the exciting events, build new relationships, or try out interesting activites around Boulder</h1>
+            </div>
+            <div class="openingSecGItem">
+                <img src="https://cdn-images-1.medium.com/max/1554/0*kIvi9mTnSxkdw9GQ.jpg">
+            </div>
+        </div>
 
         <div class='eventSectionFirst'>
             <div class="eventSecHeaderGrid">
                 <div class="eventSHGITitle">
-                    <h1>Events Over the Weekend</h1>
+                    <h1 v-if="weekendEvents.length">Events Over the Weekend</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#">View more</a>
+                    <a v-if="weekendEvents.length" v-on:click="goToCategory(categoriesOfEvents[0])">View more</a>
                 </div>
             </div>
 
-            <div v-for="event in "
-
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
+            <div v-for="event in weekendEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
-                        </div>
-                    </div>
-                </div>
+                </div>               
             </div>
 
         </div>
 
 
+        <div class='eventSection'>
+            <div class="eventSecHeaderGrid">
+                <div class="eventSHGITitle">
+                    <h1 v-if="musicEvents.length">Music</h1>
+                </div>
+                <div class="eventSHGISeeMore">
+                    <a v-if="musicEvents.length" v-on:click="goToCategory(categoriesOfEvents[1])">View more</a>
+                </div>
+            </div>
+
+            <div v-for="event in musicEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+    
+        </div>
 
         <div class='eventSection'>
             <div class="eventSecHeaderGrid">
                 <div class="eventSHGITitle">
-                    <h1>Music</h1>
+                    <h1 v-if="artAndPerfEvents.length">Art and Performances</h1>
                 </div>
                 <div class="eventSHGISeeMore">
-                    <a href="#">View more</a>
+                    <a v-if="artAndPerfEvents.length" v-on:click="goToCategory(categoriesOfEvents[2])">View more</a>
                 </div>
             </div>
 
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
+            <div v-for="event in artAndPerfEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
                         </div>
                     </div>
+                </div>               
+            </div>
+
+        </div>
+
+        <div class='eventSection'>
+            <div class="eventSecHeaderGrid">
+                <div class="eventSHGITitle">
+                    <h1 v-if="healthAndFitEvents.length">Health and Fitness</h1>
+                </div>
+                <div class="eventSHGISeeMore">
+                    <a v-if="healthAndFitEvents.length" v-on:click="goToCategory(categoriesOfEvents[3])">View more</a>
                 </div>
             </div>
 
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
+            <div v-for="event in healthAndFitEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
                         </div>
                     </div>
+                </div>               
+            </div>
+    
+        </div>
+
+        <div class='eventSection'>
+            <div class="eventSecHeaderGrid">
+                <div class="eventSHGITitle">
+                    <h1 v-if="foodAndDrinkEvents.length">Food and Drink</h1>
+                </div>
+                <div class="eventSHGISeeMore">
+                    <a v-if="foodAndDrinkEvents.length" v-on:click="goToCategory(categoriesOfEvents[4])">View more</a>
                 </div>
             </div>
 
-            <div class="column">
-                <div class="card">
-                    <img src="data:image/jpeg;base64,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">
-                    <div id="eventInfoGrid">
-                        <div class="eventGridItem">
-                            <h1>Jan 30</h1>
-                        </div>      
-                        <div class="eventGridItem">
-                            <h3>Let the Show Begin!</h3>
-                            <p>Fri, Jan 30, 6:00 p.m.</p>
-                            <p>Boulder Theater, Boulder, CO</p>
+            <div v-for="event in foodAndDrinkEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
                         </div>
                     </div>
+                </div>               
+            </div>
+    
+        </div>
+
+        <div class='eventSection'>
+            <div class="eventSecHeaderGrid">
+                <div class="eventSHGITitle">
+                    <h1 v-if="freeEvents.length">Free</h1>
+                </div>
+                <div class="eventSHGISeeMore">
+                    <a v-if="freeEvents.length" v-on:click="goToCategory(categoriesOfEvents[5])">View more</a>
                 </div>
             </div>
 
-            
+            <div v-for="event in freeEvents">
+                <div class="column">
+                    <div class="card" v-on:click="goToEvent(event)">
+                        <img :src='event["PictureLink"]' class="profile" style ="width:100%">
+                        <div id="eventInfoGrid">
+                            <div class="eventGridItem">
+                                <h1 style="text-align: center">{{toWordMonth(event['Date'])}} {{getDay(event['Date'])}}</h1>
+                            </div>      
+                            <div class="eventGridItem">
+                                <h3>{{event['Title']}}</h3>
+                                <p>{{getDayOfWeek(event['Date'])}}, {{toWordMonth(event['Date'])}} {{getDay(event['Date'])}} {{event['Times']}}</p>
+                                <p>{{event['Location']}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+    
         </div>
 
     </body>
@@ -170,13 +228,15 @@ export default {
 
     data(){
         return{
+            //all of these lists will only contain the top three
             musicEvents: [],
             artAndPerfEvents: [],
             healthAndFitEvents: [],
             foodAndDrinkEvents: [],
             weekendEvents: [],
             freeEvents: [],
-            mainCategoriesEvents: ['Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink'],
+            searchedUpCategory: null,
+            categoriesOfEvents: ['Over the Weekend', 'Music', 'Art and Performances', 'Health and Fitness', 'Food and Drink', 'Free'],
             url: 'http://127.0.0.1:8000/event/allEvents/',
             monthDayDict: {
                 1: 31,
@@ -191,17 +251,152 @@ export default {
                 10: 31,
                 11: 30,
                 12: 31
+            },
+            monthNumToWordDict: {
+                1: "Jan",
+                2: "Feb",
+                3: "Mar",
+                4: "Apr",
+                5: "May",
+                6: "Jun",
+                7: "Jul",
+                8: "Aug",
+                9: "Sep",
+                10: "Oct",
+                11: "Nov",
+                12: "Dec"
+            },
+            numDayOfWeekDict: {
+                0: "Sun",
+                1: "Mon",
+                2: "Tues",
+                3: "Wed",
+                4: "Thur",
+                5: "Fri",
+                6: "Sat"
             }
         }
     },
 
     methods: {
+
+        searchingUpCategory: function(e){
+            e.preventDefault();
+            //console.log(this.searchedUpCategory.toLowerCase())
+            var searchCat = this.searchedUpCategory.toLowerCase()
+            //console.log(searchCat.length)
+            var currCategory;
+            var matchedCat;
+            var numMatches = 0;
+            for (var i = 0; i < this.categoriesOfEvents.length; i++){
+                //console.log(this.categoriesOfEvents[i].toLowerCase())
+                //console.log(this.categoriesOfEvents[i].length)
+                currCategory = this.categoriesOfEvents[i].toLowerCase()
+                //console.log(currCategory)
+                //console.log(currCategory.length)
+                var currSubStr;
+                if (currCategory.length >= searchCat.length){
+                    for  (var j = 0 ; j < (currCategory.length-searchCat.length+1); j++){
+                        currSubStr = currCategory.substr(j, searchCat.length)
+                        //console.log(currSubStr)
+                        if (currSubStr == searchCat){
+                            //console.log("found match")
+                            //console.log(this.categoriesOfEvents[i])
+                            matchedCat = this.categoriesOfEvents[i]
+                            numMatches = numMatches + 1
+                            break
+                        }
+                    }
+                } 
+            }
+
+            //console.log("num matches")
+            //console.log(numMatches)
+            //console.log("matchedCat")
+            //console.log(matchedCat)
+            if (numMatches == 1){
+                this.goToCategory(matchedCat)
+            }
+        },
+
+        //turns the element into strings then compares their sequences of UTF-16 code unit values
+        sortList: function(eventList){
+
+            eventList = eventList.sort(function(a,b)
+            {
+                //console.log(a)
+                //console.log(b)
+                var c = new Date(a['Date']);
+                var d = new Date(b['Date']);
+                return c-d;
+            });
+
+            //console.log(eventList)
+
+            return eventList;
+        },
+
+        goToEvent: function(theEvent) {
+            var theEventTitle = theEvent['Title']
+            var eventToken1 = theEvent['token1']
+            var eventToken2 = theEvent['token2']
+            var eventToken3 = theEvent['token3']
+            this.$router.push({name: 'event', params: { token1: eventToken1, token2: eventToken2, token3: eventToken3 }})
+            
+        },
+
+        goToCategory: function(theCategory) {
+            this.$router.push({name: 'category', params: { category: theCategory}})
+        },
+
+        toWordMonth: function(fullDate) {
+            var data, month, wordedMonth
+            data = this.dateParser(fullDate)
+            month = data[0]
+            wordedMonth = this.monthNumToWordDict[month]
+            return wordedMonth
+        },
+
+        getDay: function(fullDate){
+            var data, day
+            data = this.dateParser(fullDate)
+            day = data[1]
+            return day
+        },
+
+        getDayOfWeek: function(fullDate){
+            //console.log(fullDate)
+            var wordedDayOfWeek
+            var theDateOfWeek = new Date(fullDate)
+            //console.log(theDateOfWeek)
+            //console.log(theDateOfWeek.getFullYear())
+            wordedDayOfWeek = this.numDayOfWeekDict[theDateOfWeek.getDay()]
+            //console.log(wordedDayOfWeek)
+            return wordedDayOfWeek
+        },
+
         myFunction: function() {
-            var x
-            x = document.getElementById("myDropdown").classList.toggle("show");
+            document.getElementById("myDropdown").classList.toggle("show");
             //console.log(x)
         },
         
+        // Close the dropdown if the user clicks outside of it
+        window: onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+ 
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    //console.log(openDropdown)
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        },
+
         filterFunction: function(dd) {
             var input, filter, ul, li, a, i, div;
             input = document.getElementById("myInput");
@@ -227,13 +422,19 @@ export default {
             var numDaysAwaySat, numDaysAwaySun, totalNumDaysOfMonth, i, newMonth, newYear;
             numDaysAwaySat = 6-currDayOfWeek;
             numDaysAwaySun = 7-currDayOfWeek;
+            //console.log(numDaysAwaySat)
+            //console.log(numDaysAwaySun)
             newMonth = currMonth;
             newYear = currYear
             totalNumDaysOfMonth = this.monthDayDict[currMonth];
+
             //console.log(totalNumDaysOfMonth)
             var SatMonth, SatDay, SatYear;
             var SunMonth, SunDay, SunYear;
             for (i = 0; i < numDaysAwaySun+1; i++){
+                //console.log(i)
+                //console.log(currDayNum)
+                //console.log(currDayOfWeek)
                 if (currDayNum == totalNumDaysOfMonth){
                     currDayNum = 1;
                     newMonth = newMonth + 1;
@@ -245,24 +446,25 @@ export default {
                         }
                     }
                 }
-                if (currDayOfWeek == 6){
+                else if (currDayOfWeek == 6){
                     SatMonth = newMonth
                     SatDay = currDayNum
                     SatYear = newYear
                 }
-                if (currDayOfWeek == 0){
+                else if (currDayOfWeek == 0){
                     SunMonth = newMonth
                     SunDay = currDayNum
                     SunYear = newYear
                 }
-                else {
-                    currDayNum = currDayNum + 1
-                    currDayOfWeek = currDayOfWeek + 1
-                    if (currDayOfWeek == 7){
-                        currDayOfWeek = 0
-                    }
+                
+                currDayNum = currDayNum + 1
+                currDayOfWeek = currDayOfWeek + 1
+                if (currDayOfWeek == 7){
+                    currDayOfWeek = 0
                 }
+                
             }
+            
             /*
             console.log(SatMonth)
             console.log(SatDay)
@@ -307,13 +509,13 @@ export default {
             //console.log(lastTwoDigitsYear)
             var isWeekend = dayOfWeek%6==0;
             //console.log(isWeekend)
-            var currDateData = this.weekendDaysCalculator(mm, dayOfWeek, dd, lastTwoDigitsYear)
-            //currDateData[0] is month of Saturday
-            //currDateData[1] is day of Saturday
-            //currDateData[2] is year of Saturday
-            //currDateData[3] is month of Sunday
-            //currDateData[4] is day of Sunday
-            //currDateData[5] is year of Sunday
+            var weekendDateData = this.weekendDaysCalculator(mm, dayOfWeek, dd, lastTwoDigitsYear)
+            //weekendDateData[0] is month of Saturday
+            //weekendDateData[1] is day of Saturday
+            //weekendDateData[2] is year of Saturday
+            //weekendDateData[3] is month of Sunday
+            //weekendDateData[4] is day of Sunday
+            //weekendDateData[5] is year of Sunday
 
             var i, anEvent;
             var dateData;
@@ -329,42 +531,48 @@ export default {
                 //dateData[1] = day
                 //dateData[2] = year
 
-                if (anEvent.Category == "Music"){
+                if ((anEvent.Category == "Music") && (this.musicEvents.length < 3)){
                     this.musicEvents.push(anEvent);
                 }
-                if (anEvent.Category == "Art and Performances"){
+                if ((anEvent.Category == "Art and Performances") && (this.artAndPerfEvents.length < 4)){
                     this.artAndPerfEvents.push(anEvent);
                 }
-                if (anEvent.Category == "Health and Fitness"){
+                if ((anEvent.Category == "Health and Fitness") && (this.healthAndFitEvents.length < 3)){
                     this.healthAndFitEvents.push(anEvent);
                 }
-                if (anEvent.Category == "Food and Drink"){
+                if ((anEvent.Category == "Food and Drink") && (this.foodAndDrinkEvents.length < 3)){
                     this.foodAndDrinkEvents.push(anEvent);
                 }
-                if (anEvent.AdmissionFee == 0){
+                if ((anEvent.AdmissionFee == 0) && (this.freeEvents.length < 3)){
                     this.freeEvents.push(anEvent);
                 }
 
                 //event takes place this Saturday
-                if ((dateData[0].toString() == currDateData[0]) && (dateData[1].toString() == currDateData[1]) && (dateData[2].toString() == currDateData[2]) && (addedToWeekendList == false)){
+                if ((dateData[0].toString() == weekendDateData[0]) && (dateData[1].toString() == weekendDateData[1]) && (dateData[2].toString() == weekendDateData[2]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
                     this.weekendEvents.push(anEvent);
                     addedToWeekendList = true
                 }
 
                 //event takes place this Sunday
-                if ((dateData[0].toString() == currDateData[3]) && (dateData[1].toString() == currDateData[4]) && (dateData[2].toString() == currDateData[5]) && (addedToWeekendList == false)){
+                if ((dateData[0].toString() == weekendDateData[3]) && (dateData[1].toString() == weekendDateData[4]) && (dateData[2].toString() == weekendDateData[5]) && (addedToWeekendList == false) && (this.weekendEvents.length < 3)){
                     this.weekendEvents.push(anEvent);
                     addedToWeekendList = true
                 }
                 
             }
-
+            /*
             console.log(this.musicEvents)
             console.log(this.artAndPerfEvents)
             console.log(this.healthAndFitEvents)
             console.log(this.foodAndDrinkEvents)
             console.log(this.freeEvents)
-            console.log(this.weekendEvents)
+            console.log(this.weekendEvents) */
+            this.musicEvents = this.sortList(this.musicEvents);
+            this.artAndPerfEvents = this.sortList(this.artAndPerfEvents);
+            this.healthAndFitEvents = this.sortList(this.healthAndFitEvents);
+            this.foodAndDrinkEvents = this.sortList(this.foodAndDrinkEvents);
+            this.freeEvents = this.sortList(this.freeEvents);
+            this.weekendEvents = this.sortList(this.weekendEvents);
         }
     },
 
@@ -406,6 +614,9 @@ export default {
     body {
         background-color: rgb(51, 48, 48);
         margin: 4em;
+    }
+    a {
+        font-family: 'Gotham A', 'Gotham B', sans-serif;
     }
     h1
     {
@@ -465,7 +676,6 @@ export default {
         float: center;
         margin-top: 2vh;
         padding: 1em;
-        padding-bottom: 10vh;
     }
     .eventSection
     {
@@ -473,7 +683,7 @@ export default {
         width: 100%;
         text-align: center;
         float: center;
-        margin-top: 30vh;
+        margin-top: 35vh;
         padding: 1em;
         padding-top: 30vh;
     }
@@ -533,9 +743,9 @@ export default {
     }
     .eventGridItem h1 {
         padding: 0.2em;
-        padding-left: 1.8vw;
+        padding-left: 1.0vw;
         font-size: 4.5vmin;
-        text-align: left;
+        text-align: center;
         color: #ffd61e;
         float: bottom;
     }
@@ -769,7 +979,7 @@ export default {
     }
     .eventGridItem h1 {
         padding: 20px;
-        padding-left: 30px;
+        /*padding-left: 30px;*/
         font-size: 5vmin;
         text-align: center;
         color: #ffd61e;
