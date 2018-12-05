@@ -534,7 +534,7 @@ export default {
                 if ((anEvent.Category == "Music") && (this.musicEvents.length < 3)){
                     this.musicEvents.push(anEvent);
                 }
-                if ((anEvent.Category == "Art and Performances") && (this.artAndPerfEvents.length < 4)){
+                if ((anEvent.Category == "Art and Performances") && (this.artAndPerfEvents.length < 3)){
                     this.artAndPerfEvents.push(anEvent);
                 }
                 if ((anEvent.Category == "Health and Fitness") && (this.healthAndFitEvents.length < 3)){
