@@ -603,14 +603,13 @@ export default {
     {
         margin: 2vmin;
         display: outline;
-        font-size: 1.8vmin;
+        font-size: 1.7vmin;
         font-family: 'Gotham A', 'Gotham B', sans-serif;
         text-decoration: none;
         font-weight: normal;
         color: white;
         text-align: center;
-        height: 0;
-        line-height: 1.7em;
+        line-height: 0.5em;
         min-height: 5px; 
         padding: 0.1em;
     }
@@ -695,21 +694,18 @@ export default {
     {
         margin: 0;
         float: left;
-        width: 29.5%;
+        width: 28%;
         height: 15%;
         margin-bottom: 1vh;
         padding: 1.5vw;
         padding-bottom: 5vmin;
-        margin-left: 0;
-        padding-left: 0;
-        padding-right: 2vw;
     }
     
     .card 
     {
         background: black;
         border: 10px white;
-        height: 59vh;
+        height: 56vh;
     }
     .card:hover
     {
@@ -744,15 +740,16 @@ export default {
 
     #eventInfoGrid {
         display: grid;
-        grid-template-columns: 23% 77%;
-        padding: 0.7em;
-        height: 20vh;
+        grid-template-columns: 24% 76%;
+        padding: 0.2em;
+        height: 80vh;
+        
         /*background-color: black; */
     }
     .eventGridItem h1 {
         padding: 0.2em;
-        padding-left: 0.8vw;
-        font-size: 4.2vmin;
+        padding-left: 2.0vw;
+        font-size: 4.2vh;
         text-align: center;
         color: #ffd61e;
         float: bottom;

@@ -273,7 +273,7 @@ export default {
     {
         margin: 0;
         float: left;
-        width: 41vw;
+        width: 38.5vw;
         height: 25vh;
         margin-bottom: 1vh;
         padding: 1.5vw;
