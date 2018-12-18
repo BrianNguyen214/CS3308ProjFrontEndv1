@@ -964,7 +964,7 @@ export default {
         z-index: -1;
         margin-top: 10px;
         float: center;
-        max-width: 70%;
+        max-width: 65%;
     }
     .card:hover
     {
