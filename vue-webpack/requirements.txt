@@ -20,7 +20,7 @@ decorator==4.3.0
 defusedxml==0.5.0
 Django==1.11.17
 django-cors-headers==2.4.0
-djangorestframework==3.8.2
+djangorestframework==3.11.2
 docker==3.4.1
 docker-compose==1.21.2
 docker-pycreds==0.3.0
