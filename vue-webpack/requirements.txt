@@ -57,7 +57,7 @@ pluggy==0.8.0
 py==1.5.2
 PyAutoGUI==0.9.38
 pycrypto==2.6.1
-Pygments==2.2.0
+Pygments==2.7.4
 pylint==1.9.3
 PyMsgBox==1.0.6
 PyScreeze==0.1.18
